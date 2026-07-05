@@ -31,6 +31,28 @@ app.use(cookieParser());
 dbconnection();
 
 
+
+// Test Route
+app.get("/", (req, res) => {
+  res.json({
+    success: true,
+    message: "Backend is running successfully 🚀",
+  });
+});
+
+// Test API
+app.get("/api/test", (req, res) => {
+  res.json({
+    success: true,
+    message: "Test API is working!",
+    time: new Date().toISOString(),
+  });
+});
+
+// Your other routes...
+
+
+
 // CREATE PROJECT
 app.post("/createform", Adminmiddleware, upload.single("picture"), async (req, res) => {
   try {
