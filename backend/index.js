@@ -8,8 +8,8 @@ import Membermodel from "./models/Createmember.js";
 import regmodel from "../backend/models/Regristion.js";
 import Task from "../backend/models/Taskmodel.js"
 import bcrypt from "bcrypt"
-import jwt from "jsonwebtoken" 
-import cookieParser  from "cookie-parser";
+import jwt from "jsonwebtoken"
+import cookieParser from "cookie-parser";
 import { Adminmiddleware } from "./Forauthmiddleware/Adminmiddleware.js";
 import dotenv, { config } from "dotenv";
 
@@ -17,13 +17,13 @@ import dotenv, { config } from "dotenv";
 
 dotenv.config();
 
-const app = express();    
+const app = express();
 
 app.use(
   cors({
     origin: process.env.FRONTEND_URL,
     credentials: true,
-  }) 
+  })
 );
 app.use(express.json());
 app.use(cookieParser());
@@ -130,7 +130,7 @@ app.post("/register", async (req, res) => {
 
     const jwthash = jwt.sign(
       { _id: user._id },
-      "3456"
+      process.env.JWT_SECRET
     );
 
     res.cookie("token", jwthash, {
@@ -207,17 +207,18 @@ app.post("/login", async (req, res) => {
         message: "Password not matched",
       });
     }
-        
+
 
     const jwthash = jwt.sign(
       { _id: user._id },
-      "3456"
+      process.env.JWT_SECRET
     );
 
     res.cookie("token", jwthash, {
       httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "none",
     });
-
 
     res.json({
       success: true,
@@ -231,7 +232,7 @@ app.post("/login", async (req, res) => {
       message: error.message,
     });
   }
-}); 
+});
 
 
 // for member to get 
@@ -454,7 +455,7 @@ app.get("/gettasks/:projectId", async (req, res) => {
     });
   }
 });
-  
+
 
 
 app.get("/isadmin", async (req, res) => {
@@ -468,7 +469,7 @@ app.get("/isadmin", async (req, res) => {
       });
     }
 
-    const data = jwt.verify(token, "3456");
+    const data = jwt.verify(token, process.env.JWT_SECRET);
 
     const existingAdmin = await regmodel.findById(data._id);
 
@@ -502,8 +503,9 @@ app.get("/isadmin", async (req, res) => {
 
 
 
-app.listen(process.env.PORT, () => {
-  console.log(`Server Running On Port ${process.env.PORT}`);
-}); 
+const PORT = process.env.PORT || 3000;
 
-//this change today
+app.listen(PORT, () => {
+  console.log(`Server Running On Port ${PORT}`);
+});
+
