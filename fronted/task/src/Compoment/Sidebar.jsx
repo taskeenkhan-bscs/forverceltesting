@@ -215,6 +215,8 @@ const BOTTOM_NAV = [
 export default function Sidebar() {
   const location = useLocation();
   const active = location.pathname; 
+
+  console.log(import.meta.env.VITE_BACKEND_URL); 
   
   return (
     <>
