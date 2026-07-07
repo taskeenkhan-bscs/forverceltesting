@@ -34,6 +34,7 @@ function Register() {
       withCredentials: true,
     }
   );
+  console.log(res, "THe reasponase dastsa")
  
 
       if (res.data.success) {

@@ -12,7 +12,7 @@ export async function Adminmiddleware(req, res, next) {
       });
     }
 
-  const decoded = jwt.verify(token, "3456");
+const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
     const existingAdmin = await regmodel.findById(decoded._id);
 

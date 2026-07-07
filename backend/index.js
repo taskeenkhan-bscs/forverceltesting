@@ -114,6 +114,7 @@ app.get("/projects", Adminmiddleware, async (req, res) => {
 //create for registrion 
 app.post("/register", async (req, res) => {
   try {
+    console.log("THe sapi ias hitted")
     const { name, email, password, role, cnic, age, address } = req.body;
 
     const hashpassword = await bcrypt.hash(password, 10);
@@ -135,6 +136,9 @@ app.post("/register", async (req, res) => {
 
     res.cookie("token", jwthash, {
       httpOnly: true,
+      secure: true,
+      sameSite: "none",
+      path: "/",
     });
 
     res.status(201).json({
@@ -216,8 +220,9 @@ app.post("/login", async (req, res) => {
 
     res.cookie("token", jwthash, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure: true,
       sameSite: "none",
+      path: "/",
     });
 
     res.json({
@@ -456,8 +461,6 @@ app.get("/gettasks/:projectId", async (req, res) => {
   }
 });
 
-
-
 app.get("/isadmin", async (req, res) => {
   try {
     const token = req.cookies.token;
@@ -500,8 +503,6 @@ app.get("/isadmin", async (req, res) => {
     });
   }
 });
-
-
 
 const PORT = process.env.PORT || 3000;
 
