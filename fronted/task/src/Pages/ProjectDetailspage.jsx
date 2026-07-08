@@ -355,7 +355,7 @@ function ProjectDetailspage() {
     setLoading(true);
     setError(false);
     try {
-      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/modernproject`, {
+      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/projects/modernproject`, {
         _id: params.id,
       });
 

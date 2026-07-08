@@ -30,7 +30,7 @@ function CreateMember() {
       formData.append("profilePicture", member.profilePicture);
 
     const res = await axios.post(
-  `${import.meta.env.VITE_BACKEND_URL}/createmember`,
+  `${import.meta.env.VITE_BACKEND_URL}/members/createmember`,
   formData,
   {
     headers: {

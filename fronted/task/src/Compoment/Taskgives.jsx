@@ -103,7 +103,7 @@ function Taskgives ({ setShowTaskForm, project, onTaskCreate = () => {} }) {
 
       // POST to backend
       const res = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/addtask`,
+        `${import.meta.env.VITE_BACKEND_URL}/tasks/addtask`,
         taskData
       );
 

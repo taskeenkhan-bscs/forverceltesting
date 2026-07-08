@@ -26,7 +26,7 @@ function Projectupdate() {
   async function GetSingleProject() {
     try {
       setFetching(true);
-      let res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/modernproject`, { _id: params.id });
+      let res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/projects/modernproject`, { _id: params.id });
       console.log("API Response:", res.data);
 
       if (res.data.success && res.data.project) {
@@ -51,7 +51,7 @@ function Projectupdate() {
   // ✅ correct route + correct field name
   async function getMembers() {
     try {
-      let res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/getmember`);
+      let res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/members/getmember`);
       if (res.data.success) {
         setMembers(res.data.data);
       }
@@ -75,7 +75,7 @@ function Projectupdate() {
     setErrors({});
     setLoading(true);
     try {
-      let res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/updateproject`, {
+      let res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/projects/updateproject`, {
         ...proj,
         _id: params.id
       });

@@ -27,13 +27,13 @@ function Register() {
  try {
   console.log(import.meta.env.VITE_BACKEND_URL);
 
-  const res = await axios.post(
-    `${import.meta.env.VITE_BACKEND_URL}/register`,
-    form,
-    {
-      withCredentials: true,
-    }
-  );
+ const res = await axios.post(
+  `${import.meta.env.VITE_BACKEND_URL}/auth/register`,
+  form,
+  {
+    withCredentials: true,
+  }
+);
   console.log(res, "THe reasponase dastsa")
  
 

@@ -136,7 +136,7 @@ useEffect(() => {
   async function getProjects() {
     try {
       const res = await axios.get(
-        `${import.meta.env.VITE_BACKEND_URL}/projects`,
+        `${import.meta.env.VITE_BACKEND_URL}/projects/projects`,
         {
           withCredentials: true,
         }
@@ -157,7 +157,7 @@ useEffect(() => {
 
   async function deletebyid(id) {
     try {
-      let res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/delete`, { id });
+      let res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/projects/delete`, { id });
 
       console.log(res.data);
 

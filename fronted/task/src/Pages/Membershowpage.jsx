@@ -269,7 +269,7 @@ export default function Membershowpage() {
 
   async function getMembers() {
     try {
-      const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/getmember`,
+      const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/members/getmember`,
         {
            withCredentials: true
         }
@@ -287,7 +287,7 @@ export default function Membershowpage() {
   async function deletebyid(id) {
     if (!window.confirm("Are you sure you want to delete this member?")) return;
     try {
-      await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/deletemember`, { data: { id } });
+      await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/members/deletemember`, { data: { id } });
       setMembers((prev) => prev.filter((m) => m._id !== id));
       showToast("Member deleted successfully.", "success");
     } catch (err) {

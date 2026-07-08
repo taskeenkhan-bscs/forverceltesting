@@ -38,7 +38,7 @@ function ProjectForm() {
     try {
 
    let res = await axios.post(
-  `${import.meta.env.VITE_BACKEND_URL}/createform`,
+  `${import.meta.env.VITE_BACKEND_URL}/project/createform`,
   formData,
   {
     headers: {
@@ -81,7 +81,7 @@ function ProjectForm() {
   async function getMembers() {
     try {
       const res = await axios.get(
-        `${import.meta.env.VITE_BACKEND_URL}/getmember`,
+        `${import.meta.env.VITE_BACKEND_URL}/members/getmember`,
         {
            withCredentials: true
         }

@@ -42,7 +42,7 @@ const handleSubmit = async (e) => {
     }
 
     const res = await axios.post(
-      `${import.meta.env.VITE_BACKEND_URL}/updatemember`,
+      `${import.meta.env.VITE_BACKEND_URL}/members/updatemember`,
       formData,
       {
         headers: {
@@ -76,7 +76,7 @@ async function getsinglemember() {
   try {
 
     let res = await axios.get(
-     `${import.meta.env.VITE_BACKEND_URL}/getsinglemember/${id}`
+     `${import.meta.env.VITE_BACKEND_URL}//members/getsinglemember/${id}`
     );
 
     console.log(res.data);

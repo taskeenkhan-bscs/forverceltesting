@@ -141,7 +141,7 @@ export default function AddProject() {
   const [errorMsg,   setError]   = useState("");
 
   useEffect(() => {
-   axios.get(`${import.meta.env.VITE_BACKEND_URL}/getmember`)
+   axios.get(`${import.meta.env.VITE_BACKEND_URL}/members/getmember`)
       .then((res) => {
         if (res.data.success) {
           setMembers(res.data.data || res.data.members || []);
@@ -176,7 +176,7 @@ export default function AddProject() {
       });
 
    const res = await axios.post(
-  `${import.meta.env.VITE_BACKEND_URL}/createform`,
+  `${import.meta.env.VITE_BACKEND_URL}/projects/createform`,
   data,
   {
     headers: {

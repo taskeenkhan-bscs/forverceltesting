@@ -23,7 +23,7 @@ function Tasklist({ projectId: projectIdProp, onStats }) {
       setError("");
       try {
         const res = await axios.get(
-          `${import.meta.env.VITE_BACKEND_URL}/gettasks/${projectId}`
+          `${import.meta.env.VITE_BACKEND_URL}/tasks/gettasks/${projectId}`
         );
         const list = res.data.tasks || [];
         setTasks(list);

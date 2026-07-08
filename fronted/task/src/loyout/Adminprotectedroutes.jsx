@@ -9,7 +9,7 @@ function AdminProtectedRoutes({ children }) {
   async function getRoles() {
     try {
       const res = await axios.get(
-        `${import.meta.env.VITE_BACKEND_URL}/isadmin`,
+        `${import.meta.env.VITE_BACKEND_URL}/admin/isadmin`,
         {
           withCredentials: true,
         }

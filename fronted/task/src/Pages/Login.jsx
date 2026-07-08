@@ -33,8 +33,11 @@ function Login() {
       setLoading(true);
 
       const res = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/login`,
-        form
+        `${import.meta.env.VITE_BACKEND_URL}/auth/login`,
+        form,
+        {
+          withCredentials: true,
+        }
       );
 
       if (!res.data.success) {
@@ -56,7 +59,7 @@ function Login() {
 
       alert(
         error?.response?.data?.message ||
-          "Login Failed ❌"
+        "Login Failed ❌"
       );
     } finally {
       setLoading(false);
