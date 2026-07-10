@@ -39,14 +39,14 @@ function App() {
           }
         />
 
-        <Route
-          path="/tasklist"
-          element={
-            <AdminProtectedRoutes>
-              <Tasklist />
-            </AdminProtectedRoutes>
-          }
-        />
+   <Route
+  path="/tasklist/:projectId"
+  element={
+    <AdminProtectedRoutes>
+      <Tasklist />
+    </AdminProtectedRoutes>
+  }
+/>
 
         <Route
           path="/projectlist"

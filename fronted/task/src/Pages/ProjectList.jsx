@@ -136,7 +136,7 @@ useEffect(() => {
   async function getProjects() {
     try {
       const res = await axios.get(
-        `${import.meta.env.VITE_BACKEND_URL}/projects/projects`,
+        `${import.meta.env.VITE_BACKEND_URL}/projects`,
         {
           withCredentials: true,
         }

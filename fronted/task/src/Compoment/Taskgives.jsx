@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom"; // NEW: for navigating to the Tasklist page
 
-function Taskgives ({ setShowTaskForm, project, onTaskCreate = () => {} }) {
+function Taskgives({ setShowTaskForm, project, onTaskCreate = () => { } }) {
   const navigate = useNavigate(); // NEW
 
   const [task, setTask] = useState({
@@ -21,8 +21,8 @@ function Taskgives ({ setShowTaskForm, project, onTaskCreate = () => {} }) {
   const members = project?.members && project.members.length > 0
     ? project.members
     : project?.member
-    ? [{ _id: project.member._id, fullName: project.member.fullName }]
-    : [];
+      ? [{ _id: project.member._id, fullName: project.member.fullName }]
+      : [];
 
   const handleOverlayClick = (e) => {
     if (e.target === e.currentTarget) {
@@ -103,7 +103,7 @@ function Taskgives ({ setShowTaskForm, project, onTaskCreate = () => {} }) {
 
       // POST to backend
       const res = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/tasks/addtask`,
+        `${import.meta.env.VITE_BACKEND_URL}/tasks/add`,
         taskData
       );
 
@@ -113,7 +113,12 @@ function Taskgives ({ setShowTaskForm, project, onTaskCreate = () => {} }) {
       onTaskCreate(res.data.task);
 
       alert("Task Created Successfully");
-      navigate("/tasklist"); // NEW: go to the Tasklist page instead of opening a popup
+      if (!project?._id) {
+        alert("Project ID not found");
+        return;
+      }
+
+      navigate(`/tasklist/${project._id}`); // NEW: go to the Tasklist page instead of opening a popup
       setShowTaskForm(false);
     } catch (error) {
       console.error("Error creating task:", error);

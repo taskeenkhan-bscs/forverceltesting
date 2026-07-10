@@ -141,7 +141,7 @@ export default function AddProject() {
   const [errorMsg,   setError]   = useState("");
 
   useEffect(() => {
-   axios.get(`${import.meta.env.VITE_BACKEND_URL}/members/getmember`)
+   axios.get(`${import.meta.env.VITE_BACKEND_URL}/members/`)
       .then((res) => {
         if (res.data.success) {
           setMembers(res.data.data || res.data.members || []);

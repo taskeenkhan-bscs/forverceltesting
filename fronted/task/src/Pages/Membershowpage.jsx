@@ -269,7 +269,7 @@ export default function Membershowpage() {
 
   async function getMembers() {
     try {
-      const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/members/getmember`,
+      const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/members/`,
         {
            withCredentials: true
         }

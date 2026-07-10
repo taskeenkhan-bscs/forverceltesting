@@ -18,40 +18,73 @@ function Tasklist({ projectId: projectIdProp, onStats }) {
       return;
     }
 
-    const fetchTasks = async () => {
-      setLoading(true);
-      setError("");
-      try {
-        const res = await axios.get(
-          `${import.meta.env.VITE_BACKEND_URL}/tasks/gettasks/${projectId}`
-        );
-        const list = res.data.tasks || [];
-        setTasks(list);
+  const fetchTasks = async () => {
+  setLoading(true);
+  setError("");
 
-        if (onStats) {
-          const now = new Date();
-          const counts = list.reduce(
-            (acc, t) => {
-              const status = (t.status || "").toLowerCase();
-              if (status === "done") acc.done += 1;
-              else if (status === "in progress") acc.inProgress += 1;
-              if (t.deadline && status !== "done" && new Date(t.deadline) < now) {
-                acc.overdue += 1;
-              }
-              return acc;
-            },
-            { done: 0, inProgress: 0, overdue: 0 }
-          );
-          onStats({ total: list.length, ...counts });
-        }
-      } catch (err) {
-        console.log("Error fetching tasks:", err);
-        setError("Failed to load tasks. Please try again.");
-        if (onStats) onStats({ total: 0, inProgress: 0, done: 0, overdue: 0 });
-      } finally {
-        setLoading(false);
+  try {
+    const res = await axios.get(
+      `${import.meta.env.VITE_BACKEND_URL}/tasks/${projectId}`,
+      {
+        withCredentials: true,
       }
-    };
+    );
+
+    const list = res.data.tasks || [];
+    setTasks(list);
+
+    if (onStats) {
+      const now = new Date();
+
+      const counts = list.reduce(
+        (acc, t) => {
+          const status = (t.status || "").toLowerCase();
+
+          if (status === "done") {
+            acc.done++;
+          } else if (status === "in progress") {
+            acc.inProgress++;
+          }
+
+          if (
+            t.deadline &&
+            status !== "done" &&
+            new Date(t.deadline) < now
+          ) {
+            acc.overdue++;
+          }
+
+          return acc;
+        },
+        {
+          done: 0,
+          inProgress: 0,
+          overdue: 0,
+        }
+      );
+
+      onStats({
+        total: list.length,
+        ...counts,
+      });
+    }
+  } catch (err) {
+    console.error("Error fetching tasks:", err);
+
+    setError("Failed to load tasks. Please try again.");
+
+    if (onStats) {
+      onStats({
+        total: 0,
+        done: 0,
+        inProgress: 0,
+        overdue: 0,
+      });
+    }
+  } finally {
+    setLoading(false);
+  }
+};
 
     fetchTasks();
   }, [projectId, onStats]);

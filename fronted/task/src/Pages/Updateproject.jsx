@@ -81,7 +81,7 @@ function Projectupdate() {
       });
       console.log(res.data);
       if (res.data.success === true) {
-        navigate("/projectshow");
+        navigate("/projectlist");
       }
     } catch (error) {
       console.log(error);
